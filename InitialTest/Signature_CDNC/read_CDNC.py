@@ -47,7 +47,7 @@ def plot_global_data(lon, lat, data, title, save_path):
     ax.gridlines(draw_labels=True, dms=True, x_inline=False, y_inline=False)
 
     # Plot the data
-    c = ax.pcolormesh(LON, LAT, data.T, transform=ccrs.PlateCarree())
+    c = ax.pcolormesh(LON, LAT, data.T, transform=ccrs.PlateCarree(),vmin=0.,vmax=700)
 
     # Add a colorbar
     plt.colorbar(c, orientation='vertical')
