@@ -26,4 +26,4 @@ def read_nd_data(file_path, variable_name):
 # test
 Nd_BR17_data = read_nd_data(DATA_PATH + FILE_NAME, 'Nd_BR17')
 print(Nd_BR17_data)
-print(Nd_BR17_data.shape.shape)
+print(Nd_BR17_data.shape)
