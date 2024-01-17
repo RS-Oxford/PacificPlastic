@@ -9,7 +9,7 @@ import netCDF4 as nc
 import matplotlib.pyplot as plt
 import numpy as np
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 DATA_PATH = '/badc/deposited2022/modis_cdnc_sampling_gridded/data/2015/'
 
