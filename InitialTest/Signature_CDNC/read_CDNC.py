@@ -64,7 +64,7 @@ def plot_global_data(lon, lat, data, title, save_path):
 
 # Read data
 Nd_BR17_data = read_nd_data(DATA_PATH + FILE_NAME, 'Nd_BR17')[0,:,:]
-lat = read_nd_data(DATA_PATH + FILE_NAME, 'lat_bnds')
+lat = read_nd_data(DATA_PATH + FILE_NAME, 'lat_bnds')[::-1]
 lon = read_nd_data(DATA_PATH + FILE_NAME, 'lon_bnds')
 
 # Plot and save the data
