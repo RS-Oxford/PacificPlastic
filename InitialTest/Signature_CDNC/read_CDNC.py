@@ -11,7 +11,7 @@ import cartopy.crs as ccrs
 import numpy as np
 
 DATA_PATH = '/badc/deposited2022/modis_cdnc_sampling_gridded/data/2015/'
-FILE_NAME = 'modis_nd.2015.150.A.v1.nc'
+FILE_NAME = 'modis_nd.2015.300.A.v1.nc'
 
 
 def read_nd_data(file_path, variable_name):
