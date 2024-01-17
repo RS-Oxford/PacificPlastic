@@ -7,67 +7,59 @@
 
 import netCDF4 as nc
 import matplotlib.pyplot as plt
-import cartopy.crs as ccrs
 import numpy as np
+import os
+from datetime import datetime
 
 DATA_PATH = '/badc/deposited2022/modis_cdnc_sampling_gridded/data/2015/'
-FILE_NAME = 'modis_nd.2015.010.A.v1.nc'
 
-
-def read_nd_data(file_path, variable_name):
+def read_nd_data(file_name, variable_name):
     """
     Reads the variable_name dataset from a NetCDF file.
     """
-    with nc.Dataset(file_path, mode='r') as dataset:
+    print("Reading data from file: " + file_name)
+    with nc.Dataset(file_name, mode='r') as dataset:
         nd_variable_array = dataset[variable_name][:]
 
     return nd_variable_array
 
-
-def plot_global_data(lon, lat, data, title, save_path):
+def filter_data(lat, lon, data, lat_range, lon_range):
     """
-    Plots the data on a global map and saves the plot.
-
-    Parameters:
-    lon (numpy.ndarray): Longitude boundaries.
-    lat (numpy.ndarray): Latitude boundaries.
-    data (numpy.ndarray): Data to plot.
-    title (str): Title of the plot.
-    save_path (str): Path to save the plot.
+    Filters the data by latitude and longitude range.
     """
-    # Create a meshgrid for plotting
-    lon_centers = (lon[:, 1] + lon[:, 0]) / 2
-    lat_centers = (lat[:, 1] + lat[:, 0]) / 2
-    LON, LAT = np.meshgrid(lon_centers, lat_centers)
+    lat_mask = (lat >= lat_range[0]) & (lat <= lat_range[1])
+    lon_mask = (lon >= lon_range[0]) & (lon <= lon_range[1])
+    return data[:, lat_mask, :][:, :, lon_mask]
 
-    # Create the plot
-    plt.figure(figsize=(15, 8))
-    ax = plt.axes(projection=ccrs.PlateCarree())
-    ax.coastlines()
-    ax.gridlines(draw_labels=True, dms=True, x_inline=False, y_inline=False)
+# Initialize an array to store monthly data
+monthly_data = [[] for _ in range(12)]
 
-    # Plot the data
-    c = ax.pcolormesh(LON, LAT, data.T, transform=ccrs.PlateCarree(),vmin=0.,vmax=700)
+for day in range(1, 366):
+    file_name = DATA_PATH + f'modis_nd.2015.{day:03d}.A.v1.nc'
+    if not os.path.exists(file_name):
+        continue
 
-    # Add a colorbar
-    plt.colorbar(c, orientation='vertical')
+    Nd_BR17_data = read_nd_data(file_name, 'Nd_BR17')[0, :, :]
+    lat = read_nd_data(file_name, 'lat_bnds')[::-1].mean(axis=1)
+    lon = read_nd_data(file_name, 'lon_bnds').mean(axis=1)
 
-    # Add title and labels
-    plt.title(title)
-    plt.xlabel('Longitude')
-    plt.ylabel('Latitude')
+    # Filter data
+    filtered_data = filter_data(lat, lon, Nd_BR17_data, [20, 40], [-150, -120])
 
-    # Save the plot
-    plt.savefig(save_path)
-    plt.close()
+    # Determine the month for the current day
+    month = datetime(2015, 1, 1) + timedelta(days=day - 1)
+    monthly_data[month.month - 1].append(filtered_data)
 
+# Calculate the mean for each month
+monthly_mean_values = [np.nanmean(np.array(month_data)) for month_data in monthly_data if month_data]
 
-# Read data
-Nd_BR17_data = read_nd_data(DATA_PATH + FILE_NAME, 'Nd_BR17')[0,:,:]
-lat = read_nd_data(DATA_PATH + FILE_NAME, 'lat_bnds')[::-1]
-lon = read_nd_data(DATA_PATH + FILE_NAME, 'lon_bnds')
-
-# Plot and save the data
-plot_title = 'Global Plot of Nd_BR17 Data'
-save_plot_path = 'Nd_BR17_global_plot.png'
-plot_global_data(lon, lat, Nd_BR17_data, plot_title, save_plot_path)
+# Plotting the curve
+plt.figure(figsize=(10, 6))
+plt.plot(range(1, 13), monthly_mean_values, marker='o')
+plt.title('Average Nd_BR17 Values by Month')
+plt.xlabel('Month')
+plt.ylabel('Average Value')
+plt.xticks(range(1, 13), ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
+plt.grid(True)
+plt.savefig('average_nd_br17_values_by_month.png')
+plt.show()
