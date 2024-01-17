@@ -25,5 +25,9 @@ def read_nd_data(file_path, variable_name):
 
 # test
 Nd_BR17_data = read_nd_data(DATA_PATH + FILE_NAME, 'Nd_BR17')
-print(Nd_BR17_data)
+lat = read_nd_data(DATA_PATH + FILE_NAME, 'lat_bnds')
+lon = read_nd_data(DATA_PATH + FILE_NAME, 'lon_bnds')
+
+print(lat)
 print(Nd_BR17_data.shape)
+print(lat.shape)
