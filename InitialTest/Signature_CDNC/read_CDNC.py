@@ -11,7 +11,7 @@ import numpy as np
 import os
 from datetime import datetime, timedelta
 
-Year = 2018
+Year = 2017
 DATA_PATH = '/badc/deposited2022/modis_cdnc_sampling_gridded/data/%d/' % Year
 
 def read_nd_data(file_name, variable_name):
