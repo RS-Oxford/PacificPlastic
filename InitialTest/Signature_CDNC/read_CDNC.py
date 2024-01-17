@@ -40,8 +40,6 @@ def plot_global_data(lon, lat, data, title, save_path):
     lat_centers = (lat[:, 1] + lat[:, 0]) / 2
     LON, LAT = np.meshgrid(lon_centers, lat_centers)
 
-    data_to_plot = data.squeeze() if data.ndim == 3 else data
-
     # Create the plot
     plt.figure(figsize=(15, 8))
     ax = plt.axes(projection=ccrs.PlateCarree())
@@ -49,7 +47,7 @@ def plot_global_data(lon, lat, data, title, save_path):
     ax.gridlines(draw_labels=True, dms=True, x_inline=False, y_inline=False)
 
     # Plot the data
-    c = ax.pcolormesh(LON, LAT, data_to_plot, transform=ccrs.PlateCarree())
+    c = ax.pcolormesh(LON, LAT, data, transform=ccrs.PlateCarree())
 
     # Add a colorbar
     plt.colorbar(c, orientation='vertical')
@@ -65,7 +63,7 @@ def plot_global_data(lon, lat, data, title, save_path):
 
 
 # Read data
-Nd_BR17_data = read_nd_data(DATA_PATH + FILE_NAME, 'Nd_BR17')
+Nd_BR17_data = read_nd_data(DATA_PATH + FILE_NAME, 'Nd_BR17')[0,:,:]
 lat = read_nd_data(DATA_PATH + FILE_NAME, 'lat_bnds')
 lon = read_nd_data(DATA_PATH + FILE_NAME, 'lon_bnds')
 
