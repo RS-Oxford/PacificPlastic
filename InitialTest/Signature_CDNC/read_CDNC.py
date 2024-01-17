@@ -29,7 +29,7 @@ def filter_data(lat, lon, data, lat_range, lon_range):
     """
     lat_mask = (lat >= lat_range[0]) & (lat <= lat_range[1])
     lon_mask = (lon >= lon_range[0]) & (lon <= lon_range[1])
-    return data[:, lat_mask, :][:, :, lon_mask]
+    return data[lat_mask, :][:, lon_mask]
 
 # Initialize an array to store monthly data
 monthly_data = [[] for _ in range(12)]
@@ -40,7 +40,7 @@ for day in range(1, 366):
     if not os.path.exists(file_name):
         continue
 
-    Nd_BR17_data = read_nd_data(file_name, 'Nd_BR17')
+    Nd_BR17_data = read_nd_data(file_name, 'Nd_BR17')[0,:,:].T
     lat = read_nd_data(file_name, 'lat_bnds')[::-1].mean(axis=1)
     lon = read_nd_data(file_name, 'lon_bnds').mean(axis=1)
 
