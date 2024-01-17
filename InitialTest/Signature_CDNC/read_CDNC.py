@@ -11,7 +11,8 @@ import numpy as np
 import os
 from datetime import datetime, timedelta
 
-DATA_PATH = '/badc/deposited2022/modis_cdnc_sampling_gridded/data/2015/'
+Year = 2018
+DATA_PATH = '/badc/deposited2022/modis_cdnc_sampling_gridded/data/%d/' % Year
 
 def read_nd_data(file_name, variable_name):
     """
@@ -36,7 +37,7 @@ monthly_data = [[] for _ in range(12)]
 
 for day in range(1, 366):
 
-    file_name = DATA_PATH + f'modis_nd.2015.{day:03d}.A.v1.nc'
+    file_name = DATA_PATH + f'modis_nd.%d.{day:03d}.A.v1.nc'%Year
     if not os.path.exists(file_name):
         continue
 
@@ -48,7 +49,7 @@ for day in range(1, 366):
     filtered_data = filter_data(lat, lon, Nd_BR17_data, [20, 40], [-150, -120])
 
     # Determine the month for the current day
-    month = datetime(2015, 1, 1) + timedelta(days=day - 1)
+    month = datetime(Year, 1, 1) + timedelta(days=day - 1)
     monthly_data[month.month - 1].append(filtered_data)
 
 # Calculate the mean for each month
@@ -57,10 +58,10 @@ monthly_mean_values = [np.nanmean(np.array(month_data)) for month_data in monthl
 # Plotting the curve
 plt.figure(figsize=(10, 6))
 plt.plot(range(1, 13), monthly_mean_values, marker='o')
-plt.title('Average Nd_BR17 Values by Month')
+plt.title('Average Nd_BR17 Values by Month - ')
 plt.xlabel('Month')
 plt.ylabel('Average Value')
 plt.xticks(range(1, 13), ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
 plt.grid(True)
-plt.savefig('average_nd_br17_values_by_month.png')
+plt.savefig('average_nd_br17_values_by_month_%d.png'%Year)
 plt.show()
