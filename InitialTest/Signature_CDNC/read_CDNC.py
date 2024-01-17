@@ -36,6 +36,7 @@ monthly_data = [[] for _ in range(12)]
 
 for day in range(1, 366):
     file_name = DATA_PATH + f'modis_nd.2015.{day:03d}.A.v1.nc'
+    print(file_name)
     if not os.path.exists(file_name):
         continue
 
