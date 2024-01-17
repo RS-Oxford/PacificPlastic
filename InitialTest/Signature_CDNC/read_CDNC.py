@@ -8,7 +8,7 @@
 import netCDF4 as nc
 
 DATA_PATH = '/badc/deposited2022/modis_cdnc_sampling_gridded/data/2017/'
-FILE_NAME = 'gdalinfo modis_nd.2017.178.A.v1.nc'
+FILE_NAME = 'modis_nd.2017.178.A.v1.nc'
 
 def read_nd_data(file_path, variable_name):
 
