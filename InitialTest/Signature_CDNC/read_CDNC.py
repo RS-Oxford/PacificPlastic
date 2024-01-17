@@ -35,12 +35,12 @@ def filter_data(lat, lon, data, lat_range, lon_range):
 monthly_data = [[] for _ in range(12)]
 
 for day in range(1, 366):
-    file_name = DATA_PATH + f'modis_nd.2015.{day:03d}.A.v1.nc'
 
+    file_name = DATA_PATH + f'modis_nd.2015.{day:03d}.A.v1.nc'
     if not os.path.exists(file_name):
         continue
-    print(file_name)
-    Nd_BR17_data = read_nd_data(file_name, 'Nd_BR17')[0, :, :]
+
+    Nd_BR17_data = read_nd_data(file_name, 'Nd_BR17')
     lat = read_nd_data(file_name, 'lat_bnds')[::-1].mean(axis=1)
     lon = read_nd_data(file_name, 'lon_bnds').mean(axis=1)
 
