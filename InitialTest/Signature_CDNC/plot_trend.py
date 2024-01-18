@@ -30,7 +30,7 @@ def plot_data(dates, averages, std_devs):
     Plots the data on a graph.
     """
     plt.figure(figsize=(12, 6))
-    plt.errorbar(dates, averages, yerr=std_devs, fmt='o', color='b', ecolor='lightgray', elinewidth=3, capsize=0)
+    plt.errorbar(dates, averages, yerr=std_devs, fmt='.-', color='b', ecolor='lightgray', elinewidth=3, capsize=0)
 
     plt.title('Monthly Average Nd_BR17 Values with Standard Deviations (2000-2020)')
     plt.xlabel('Time (Year-Month)')
