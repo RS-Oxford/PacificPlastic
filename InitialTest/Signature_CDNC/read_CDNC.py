@@ -7,70 +7,67 @@
 
 import netCDF4 as nc
 import matplotlib.pyplot as plt
+import cartopy.crs as ccrs
 import numpy as np
-import os
-import csv
-from datetime import datetime, timedelta
 
-def read_nd_data(file_name, variable_name):
+DATA_PATH = '/badc/deposited2022/modis_cdnc_sampling_gridded/data/2015/'
+FILE_NAME = 'modis_nd.2015.178.A.v1.nc'
+
+def read_nd_data(file_path, variable_name):
     """
-    Reads the specified variable from a NetCDF file.
+    Reads the variable_name dataset from a NetCDF file.
     """
-    print(f"Reading data from file: {file_name}")
-    with nc.Dataset(file_name, mode='r') as dataset:
-        variable_array = dataset[variable_name][:]
-    return variable_array
+    with nc.Dataset(file_path, mode='r') as dataset:
+        nd_variable_array = dataset[variable_name][:]
 
-def filter_data(lat, lon, data, lat_range, lon_range):
+    return nd_variable_array
+
+
+def plot_global_data(lon, lat, data, title, save_path):
     """
-    Filters data within specified latitude and longitude ranges.
+    Plots the data on a global map and saves the plot.
+
+    Parameters:
+    lon (numpy.ndarray): Longitude boundaries.
+    lat (numpy.ndarray): Latitude boundaries.
+    data (numpy.ndarray): Data to plot.
+    title (str): Title of the plot.
+    save_path (str): Path to save the plot.
     """
-    lat_mask = (lat >= lat_range[0]) & (lat <= lat_range[1])
-    lon_mask = (lon >= lon_range[0]) & (lon <= lon_range[1])
-    return data[lat_mask, :][:, lon_mask]
+    # Create a meshgrid for plotting
+    lon_centers = (lon[:, 1] + lon[:, 0]) / 2
+    lat_centers = (lat[:, 1] + lat[:, 0]) / 2
+    LON, LAT = np.meshgrid(lon_centers, lat_centers)
 
-def process_yearly_data(year):
-    """
-    Processes and aggregates data for a given year.
-    """
-    data_path = f'/badc/deposited2022/modis_cdnc_sampling_gridded/data/{year}/'
-    monthly_data = [[] for _ in range(12)]
+    # Create the plot
+    plt.figure(figsize=(15, 8))
+    ax = plt.axes(projection=ccrs.PlateCarree())
+    ax.coastlines()
+    ax.gridlines(draw_labels=True, dms=True, x_inline=False, y_inline=False)
 
-    for day in range(1, 366):
-        file_name = data_path + f'modis_nd.{year}.{day:03d}.A.v1.nc'
-        if not os.path.exists(file_name):
-            continue
+    # Plot the data
+    c = ax.pcolormesh(LON, LAT, data.squeeze(), transform=ccrs.PlateCarree())
 
-        nd_data = read_nd_data(file_name, 'Nd_BR17')[0, :, :].T
-        lat = read_nd_data(file_name, 'lat_bnds')[::-1].mean(axis=1)
-        lon = read_nd_data(file_name, 'lon_bnds').mean(axis=1)
+    # Add a colorbar
+    plt.colorbar(c, orientation='vertical')
 
-        filtered_data = filter_data(lat, lon, nd_data, [20, 40], [-150, -120])
-        month = (datetime(year, 1, 1) + timedelta(days=day - 1)).month
-        monthly_data[month - 1].append(filtered_data)
-        print(f"Processed: Year {year}, Month {month}, Day {day}")
+    # Add title and labels
+    plt.title(title)
+    plt.xlabel('Longitude')
+    plt.ylabel('Latitude')
 
-    return monthly_data
+    # Save the plot
+    plt.savefig(save_path)
+    plt.close()
 
-def save_to_csv(yearly_data):
-    """
-    Saves aggregated data into a CSV file.
-    """
-    with open('averaged_data_2000_2020.csv', 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(['Year-Month', 'Average Value', 'Standard Deviation'])
 
-        for year, months in yearly_data.items():
-            for month, data in enumerate(months, start=1):
-                if data:
-                    month_data = np.array(data)
-                    avg = np.nanmean(month_data)
-                    std = np.nanstd(month_data)
-                    writer.writerow([f'{year}-{month:02d}', avg, std])
+# Read data
+Nd_BR17_data = read_nd_data(DATA_PATH + FILE_NAME, 'Nd_BR17')
+lat = read_nd_data(DATA_PATH + FILE_NAME, 'lat_bnds')
+lon = read_nd_data(DATA_PATH + FILE_NAME, 'lon_bnds')
 
-# Main execution
-yearly_data = {}
-for year in range(2000, 2021):
-    yearly_data[year] = process_yearly_data(year)
+# Plot and save the data
+plot_title = 'Global Plot of Nd_BR17 Data'
+save_plot_path = 'Nd_BR17_global_plot.png'
+plot_global_data(lon, lat, Nd_BR17_data, plot_title, save_plot_path)
 
-save_to_csv(yearly_data)
