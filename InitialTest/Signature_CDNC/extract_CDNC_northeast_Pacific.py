@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# @Filename:    read_CDNC.py
+# @Filename:    extract_CDNC_northeast_Pacific.py
 # @Author:      Dr. Rui Song
 # @Email:       rui.song@physics.ox.ac.uk
-# @Time:        17/01/2024 15:03
+# @Time:        18/01/2024 11:10
 
 import netCDF4 as nc
 import matplotlib.pyplot as plt
@@ -45,7 +45,7 @@ def process_yearly_data(year):
         lat = read_nd_data(file_name, 'lat_bnds')[::-1].mean(axis=1)
         lon = read_nd_data(file_name, 'lon_bnds').mean(axis=1)
 
-        filtered_data = filter_data(lat, lon, nd_data, [20, 40], [-150, -120])
+        filtered_data = filter_data(lat, lon, nd_data, [20, 40], [-150, -130])
         month = (datetime(year, 1, 1) + timedelta(days=day - 1)).month
         monthly_data[month - 1].append(filtered_data)
         print(f"Processed: Year {year}, Month {month}, Day {day}")
@@ -56,7 +56,7 @@ def save_to_csv(yearly_data):
     """
     Saves aggregated data into a CSV file.
     """
-    with open('averaged_data_2000_2020.csv', 'w', newline='') as csvfile:
+    with open('Northeast_Pacific_2000_2020.csv', 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(['Year-Month', 'Average Value', 'Standard Deviation'])
 
