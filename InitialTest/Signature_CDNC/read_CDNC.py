@@ -43,7 +43,7 @@ def plot_global_data(lon, lat, data, title, save_path):
     plt.figure(figsize=(15, 8))
     ax = plt.axes(projection=ccrs.PlateCarree())
     ax.coastlines()
-    ax.gridlines(draw_labels=True, dms=True, x_inline=False, y_inline=False)
+    ax.gridlines(draw_labels=True, dms=True, x_inline=False, y_inline=False,vmin=0,vmax=700)
 
     # Plot the data
     c = ax.pcolormesh(LON, LAT, data.squeeze(), transform=ccrs.PlateCarree())
