@@ -46,5 +46,5 @@ def plot_data(dates, averages, std_devs):
     plt.show()
 
 # Main execution
-dates, averages, std_devs = read_csv_data('./averaged_data_2000_2020.csv')
+dates, averages, std_devs = read_csv_data('./Northeast_Pacific_2000_2020.csv')
 plot_data(dates, averages, std_devs)
