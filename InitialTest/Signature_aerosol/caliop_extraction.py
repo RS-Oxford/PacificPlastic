@@ -86,3 +86,6 @@ def main():
         caliop_lon = footprint_lon_caliop[(footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & (footprint_lon_caliop > WESTERN_LONGITUDE) & (footprint_lon_caliop < EASTERN_LONGITUDE)]
 
         print(caliop_lat)
+
+if __name__ == "__main__":
+    main()
