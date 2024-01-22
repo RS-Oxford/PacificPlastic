@@ -101,9 +101,9 @@ def main():
                 'caliop_dp': flat_dp,
                 'beta_caliop': flat_beta,
                 'alpha_caliop': flat_alpha,
-                'caliop_lat': np.tile(caliop_lat, flat_aerosol_type.shape[0]),
-                'caliop_lon': np.tile(caliop_lon, flat_aerosol_type.shape[0]),
-                'alt_caliop': np.repeat(alt_caliop, flat_aerosol_type.shape[1])
+                'caliop_lat': np.tile(caliop_lat, caliop_aerosol_type.shape[0]),
+                'caliop_lon': np.tile(caliop_lon, caliop_aerosol_type.shape[0]),
+                'alt_caliop': np.repeat(alt_caliop, caliop_aerosol_type.shape[1])
             })
 
             # Save the DataFrame
