@@ -10,6 +10,7 @@ import csv
 import sys
 import logging
 import argparse
+import pandas as pd
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -37,7 +38,7 @@ DATE_SEARCH = args.DATE_SEARCH
 
 # Directory paths and locations
 CALIPSO_DATA_PATH = "/gws/nopw/j04/qa4ecv_vol3/CALIPSO/asdc.larc.nasa.gov/data/CALIPSO/LID_L2_05kmAPro-Standard-V4-51/"
-CSV_OUTPUT_PATH = './csv_ALay'
+CSV_OUTPUT_PATH = './csv_APro'
 
 # Initialize Logging
 script_base_name, _ = os.path.splitext(sys.modules['__main__'].__file__)
@@ -85,13 +86,29 @@ def main():
         caliop_lat = footprint_lat_caliop[(footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & (footprint_lon_caliop > WESTERN_LONGITUDE) & (footprint_lon_caliop < EASTERN_LONGITUDE)]
         caliop_lon = footprint_lon_caliop[(footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & (footprint_lon_caliop > WESTERN_LONGITUDE) & (footprint_lon_caliop < EASTERN_LONGITUDE)]
 
-        print(caliop_aerosol_type.shape)
-        print(caliop_feature_type.shape)
-        print(caliop_dp.shape)
-        print(beta_caliop.shape)
-        print(alpha_caliop.shape)
-        print(caliop_lat.shape)
-        print(caliop_lon.shape)
+        if caliop_aerosol_type.shape[1] > 0:
+
+            flat_aerosol_type = caliop_aerosol_type.flatten()
+            flat_feature_type = caliop_feature_type.flatten()
+            flat_dp = caliop_dp.flatten()
+            flat_beta = beta_caliop.flatten()
+            flat_alpha = alpha_caliop.flatten()
+
+            # Create a DataFrame
+            df = pd.DataFrame({
+                'caliop_aerosol_type': flat_aerosol_type,
+                'caliop_feature_type': flat_feature_type,
+                'caliop_dp': flat_dp,
+                'beta_caliop': flat_beta,
+                'alpha_caliop': flat_alpha,
+                'caliop_lat': caliop_lat,
+                'caliop_lon': caliop_lon,
+                'alt_caliop': alt_caliop
+            })
+
+            # Save the DataFrame
+            output_file = os.path.join(CSV_OUTPUT_PATH, f"{file.split('.')[0]}.csv")
+            df.to_csv(output_file, index=False)
 
 
 if __name__ == "__main__":
