@@ -74,3 +74,6 @@ for year in range(2000, 2021):
     yearly_data[year] = process_yearly_data(year)
 
 save_to_csv(yearly_data)
+
+# write a fucntion ...
+
