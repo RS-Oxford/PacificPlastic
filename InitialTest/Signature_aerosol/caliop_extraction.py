@@ -85,7 +85,14 @@ def main():
         caliop_lat = footprint_lat_caliop[(footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & (footprint_lon_caliop > WESTERN_LONGITUDE) & (footprint_lon_caliop < EASTERN_LONGITUDE)]
         caliop_lon = footprint_lon_caliop[(footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & (footprint_lon_caliop > WESTERN_LONGITUDE) & (footprint_lon_caliop < EASTERN_LONGITUDE)]
 
-        print(caliop_lat)
+        print(caliop_aerosol_type.shape)
+        print(caliop_feature_type.shape)
+        print(caliop_dp.shape)
+        print(beta_caliop.shape)
+        print(alpha_caliop.shape)
+        print(caliop_lat.shape)
+        print(caliop_lon.shape)
+
 
 if __name__ == "__main__":
     main()
