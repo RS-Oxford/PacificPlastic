@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 # Constants
 CSV_OUTPUT_PATH = './csv_APro'
 BINSIZE = 0.1  # Group latitudes every 0.1 degree
-NUM_ROWS = 390  # Fixed number of rows in each dataframe
+NUM_ROWS = 399  # Fixed number of rows in each dataframe
 
 
 def load_data(file_path):
