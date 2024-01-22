@@ -42,7 +42,10 @@ def aggregate_data(alpha_data_list):
             indices = (lats >= bin_min) & (lats < bin_max)
             aggregated_alpha[i] = np.vstack((aggregated_alpha[i], alpha_caliop[:, indices].T))
 
-    averaged_alpha = np.array([np.nanmean(bin_data, axis=0) for bin_data in aggregated_alpha])
+    averaged_alpha = np.array([np.nanmean(bin_data, axis=0) if bin_data.size > 0 else np.full(NUM_ROWS, np.nan)
+        for bin_data in aggregated_alpha
+    ])
+
     return averaged_alpha, lat_bins
 
 
