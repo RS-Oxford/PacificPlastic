@@ -21,7 +21,7 @@ def load_data(file_path):
     num_cols = len(df) // NUM_ROWS  # Calculate number of columns
     alpha_caliop = df['alpha_caliop'].values.reshape(NUM_ROWS, num_cols)
     lats = df['caliop_lat'].unique()
-    print(np.mean(alpha_caliop, axis=1))
+    print(np.nanmean(alpha_caliop, axis=1))
     return alpha_caliop, lats
 
 
