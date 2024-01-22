@@ -107,7 +107,7 @@ def main():
             })
 
             # Save the DataFrame
-            output_file = os.path.join(CSV_OUTPUT_PATH, f"{file.split('.')[0]}.csv")
+            output_file = os.path.join(CSV_OUTPUT_PATH, f"{file[0:-4]}.csv")
             df.to_csv(output_file, index=False)
 
 
