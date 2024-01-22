@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# @Filename:    caliop_scattering_ratio_extraction.py
+# @Filename:    caliop_extraction.py
 # @Author:      Dr. Rui Song
 # @Email:       rui.song@physics.ox.ac.uk
 # @Time:        22/01/2024 14:27
