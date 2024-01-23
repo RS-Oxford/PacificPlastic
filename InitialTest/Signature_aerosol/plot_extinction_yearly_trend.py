@@ -64,7 +64,7 @@ def plot_averaged_alpha(averaged_alpha, lat_bins, alts, ax):
     Lats, Alts = np.meshgrid(lat_centers, alts)
     ax.set_xlabel('Latitude [$^{\circ}$]', fontsize=20)
     ax.set_ylabel('Altitude [km]', fontsize=20)
-    ax.format(xlim=(lat_bins.min(), lat_bins.max()), ylim=(0., 4), fontsize=18)
+    ax.format(xlim=(lat_bins.min(), lat_bins.max()), ylim=(0., 4), fontsize = 18)
 
     # This will return the 'mappable' object used for the colorbar.
     return ax.pcolormesh(Lats, Alts, averaged_alpha.T, shading='auto', cmap='RdYlBu_r', vmin=0., vmax=0.1)
@@ -91,7 +91,6 @@ def main():
         mappables.append(mappable)
         ax.set_title(f'{month}', fontsize= 18)
 
-        fig.colorbar(mappables[-1], loc='b', span=number_of_columns, label='Extinction Coefficient [km$^{-1}$]')
         fig.colorbar(mappables[-1], loc='b', span=number_of_columns, label='Extinction Coefficient [km$^{-1}$]', labelsize=18, ticklabelsize=16)
 
 
