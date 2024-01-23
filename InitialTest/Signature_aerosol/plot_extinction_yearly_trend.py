@@ -70,7 +70,7 @@ def plot_averaged_alpha(averaged_alpha, lat_bins, alts, ax):
 
 
 def main():
-    fig, axs = pplt.subplots(nrows=4, ncols=3, figsize=(15, 8))  # Adjusted figsize for better aspect ratio
+    fig, axs = pplt.subplots(nrows=4, ncols=3, figsize=(15, 18), aspect=15/8)
     months = [f'{2017}-{month:02d}' for month in range(1, 13)]
     mappables = []
 
@@ -90,7 +90,7 @@ def main():
         ax.set_title(f'{month}')
 
     # Create a single horizontal colorbar at the bottom of the figure
-    fig.colorbar(mappables[-1], col=1, loc='b', span=12, label='Extinction Coefficient [km$^{-1}$]')
+    fig.colorbar(mappables[-1], loc='b', span='all', label='Extinction Coefficient [km$^{-1}$]')
 
     # Adjust layout
     fig.suptitle('Monthly Extinction Coefficient Trends for 2017')
