@@ -72,7 +72,6 @@ def plot_averaged_alpha(averaged_alpha, lat_bins, alts):
     plt.title('Average Alpha Caliop vs Latitude and Altitude')
 
     # Setting the major ticks for latitude and altitude
-    plt.xticks(ticks=np.linspace(0, len(lat_bins) - 2, 5), labels=[f"{lat:.2f}" for lat in np.linspace(lat_centers[0], lat_centers[-1], 5)])
 
     # Saving the plot
     plt.savefig('./extinction_latitude_trend.png')
