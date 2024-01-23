@@ -93,12 +93,12 @@ def plot_averaged_dp(averaged_alpha, lat_bins, alts):
     ax.format(xlim=(lat_bins.min(), lat_bins.max()), ylim=(0., 10))
 
     # Save the plot with a descriptive filename
-    fig.savefig('./depolarization_latitude_trend_proplot_2017-06.png')
+    fig.savefig('./depolarization_latitude_trend_proplot_2017-07.png')
 
 def main():
     dp_data_list = []
     for file in os.listdir(CSV_OUTPUT_PATH):
-        if file.endswith('.csv') & file.__contains__('2017-06'):
+        if file.endswith('.csv') & file.__contains__('2017-07'):
             print('Processing: ', file)
             file_path = os.path.join(CSV_OUTPUT_PATH, file)
             dp_caliop, lats, alts = load_data(file_path)
