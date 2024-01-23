@@ -83,13 +83,13 @@ def main():
             print('Cannot process file: {}'.format(file))
             continue
 
-        caliop_aerosol_type = caliop_aerosol_type[:, (footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & ((footprint_lon_caliop > EASTERN_LONGITUDE_THRESHOLD) & (footprint_lon_caliop < WESTERN_LONGITUDE_THRESHOLD))]
-        caliop_feature_type = caliop_feature_type[:, (footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & ((footprint_lon_caliop > EASTERN_LONGITUDE_THRESHOLD) & (footprint_lon_caliop < WESTERN_LONGITUDE_THRESHOLD))]
-        caliop_dp = caliop_dp[:, (footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & ((footprint_lon_caliop > EASTERN_LONGITUDE_THRESHOLD) & (footprint_lon_caliop < WESTERN_LONGITUDE_THRESHOLD))]
-        beta_caliop = beta_caliop[:, (footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & ((footprint_lon_caliop > EASTERN_LONGITUDE_THRESHOLD) & (footprint_lon_caliop < WESTERN_LONGITUDE_THRESHOLD))]
-        alpha_caliop = alpha_caliop[:, (footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & ((footprint_lon_caliop > EASTERN_LONGITUDE_THRESHOLD) & (footprint_lon_caliop < WESTERN_LONGITUDE_THRESHOLD))]
-        caliop_lat = footprint_lat_caliop[(footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & ((footprint_lon_caliop > EASTERN_LONGITUDE_THRESHOLD) & (footprint_lon_caliop < WESTERN_LONGITUDE_THRESHOLD))]
-        caliop_lon = footprint_lon_caliop[(footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & ((footprint_lon_caliop > EASTERN_LONGITUDE_THRESHOLD) & (footprint_lon_caliop < WESTERN_LONGITUDE_THRESHOLD))]
+        caliop_aerosol_type = caliop_aerosol_type[:, (footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & ((footprint_lon_caliop > EASTERN_LONGITUDE_THRESHOLD) | (footprint_lon_caliop < WESTERN_LONGITUDE_THRESHOLD))]
+        caliop_feature_type = caliop_feature_type[:, (footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & ((footprint_lon_caliop > EASTERN_LONGITUDE_THRESHOLD) | (footprint_lon_caliop < WESTERN_LONGITUDE_THRESHOLD))]
+        caliop_dp = caliop_dp[:, (footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & ((footprint_lon_caliop > EASTERN_LONGITUDE_THRESHOLD) | (footprint_lon_caliop < WESTERN_LONGITUDE_THRESHOLD))]
+        beta_caliop = beta_caliop[:, (footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & ((footprint_lon_caliop > EASTERN_LONGITUDE_THRESHOLD) | (footprint_lon_caliop < WESTERN_LONGITUDE_THRESHOLD))]
+        alpha_caliop = alpha_caliop[:, (footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & ((footprint_lon_caliop > EASTERN_LONGITUDE_THRESHOLD) | (footprint_lon_caliop < WESTERN_LONGITUDE_THRESHOLD))]
+        caliop_lat = footprint_lat_caliop[(footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & ((footprint_lon_caliop > EASTERN_LONGITUDE_THRESHOLD) | (footprint_lon_caliop < WESTERN_LONGITUDE_THRESHOLD))]
+        caliop_lon = footprint_lon_caliop[(footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & ((footprint_lon_caliop > EASTERN_LONGITUDE_THRESHOLD) | (footprint_lon_caliop < WESTERN_LONGITUDE_THRESHOLD))]
 
         if caliop_aerosol_type.shape[1] > 0:
 
