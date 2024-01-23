@@ -37,7 +37,7 @@ args = parser.parse_args()
 DATE_SEARCH = args.DATE_SEARCH
 
 # Directory paths and locations
-CALIPSO_DATA_PATH = "/gws/nopw/j04/qa4ecv_vol3/CALIPSO/asdc.larc.nasa.gov/data/CALIPSO/LID_L2_05kmAPro-Standard-V4-51/"
+CALIPSO_DATA_PATH = "/gws/nopw/j04/gbov/data/asdc.larc.nasa.gov/data/CALIPSO/LID_L2_05kmAPro-Standard-V4-51/"
 CSV_OUTPUT_PATH = './csv_APro'
 
 # Initialize Logging
@@ -59,11 +59,9 @@ def main():
     data_path = os.path.join(CALIPSO_DATA_PATH, year, month)
 
     file_list = os.listdir(data_path)
-    print(file_list)
     # only keep files that contains year-month-day in the full file name
     file_list = [file for file in file_list if DATE_SEARCH in file]
-    print(file_list)
-    quit()
+
     # iterate through all files
     for file in file_list:
         # print(data_path + file)
@@ -79,7 +77,7 @@ def main():
         except:
             print('Cannot process file: {}'.format(file))
             continue
-        print(123)
+
         caliop_aerosol_type = caliop_aerosol_type[:, (footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & (footprint_lon_caliop > WESTERN_LONGITUDE) & (footprint_lon_caliop < EASTERN_LONGITUDE)]
         caliop_feature_type = caliop_feature_type[:, (footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & (footprint_lon_caliop > WESTERN_LONGITUDE) & (footprint_lon_caliop < EASTERN_LONGITUDE)]
         caliop_dp = caliop_dp[:, (footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & (footprint_lon_caliop > WESTERN_LONGITUDE) & (footprint_lon_caliop < EASTERN_LONGITUDE)]
