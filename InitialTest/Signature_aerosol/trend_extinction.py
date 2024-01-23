@@ -47,7 +47,7 @@ def aggregate_data(alpha_data_list):
     averaged_alpha = np.empty((len(lat_bins) - 1, NUM_ROWS))
 
     for i, bin_data in enumerate(aggregated_alpha):
-        print(aggregated_alpha.size)
+        print(bin_data.shape)
         if bin_data.size == 0:
             # Log a warning or error message indicating the empty bin
             print(f"Warning: No data found for bin {i} (Latitude range: {lat_bins[i]} - {lat_bins[i+1]}). Filling with NaN.")
