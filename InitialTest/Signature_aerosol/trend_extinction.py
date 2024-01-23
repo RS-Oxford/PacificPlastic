@@ -44,6 +44,7 @@ def aggregate_data(alpha_data_list):
 
     # Averaging with a check for empty bins
     averaged_alpha = np.empty((len(lat_bins) - 1, NUM_ROWS))
+
     for i, bin_data in enumerate(aggregated_alpha):
         if bin_data.size == 0:
             # Log a warning or error message indicating the empty bin
@@ -55,6 +56,8 @@ def aggregate_data(alpha_data_list):
 
     return averaged_alpha, lat_bins
 
+    print(averaged_alpha)
+    print(lat_bins)
 
 
 def plot_averaged_alpha(averaged_alpha, lat_bins, alts):
