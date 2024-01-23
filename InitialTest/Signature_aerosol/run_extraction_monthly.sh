@@ -16,7 +16,7 @@ while [ $current_sec -le $end_sec ]; do
     current_date=$(date -d @$current_sec +%Y-%m-%d)
 
     # Run the python command with the current date
-    python caliop_extraction.py $current_date
+    python caliop_extraction_lon.py $current_date
 
     # Move to the next day (86400 seconds in a day)
     current_sec=$((current_sec+86400))
