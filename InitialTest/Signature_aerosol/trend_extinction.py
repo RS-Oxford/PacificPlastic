@@ -56,7 +56,7 @@ def aggregate_data(alpha_data_list):
     return averaged_alpha, lat_bins
 
 def plot_averaged_alpha(averaged_alpha, lat_bins, alts):
-    plt.figure(figsize=(12, 6))
+    plt.figure(figsize=(15, 6))
 
     # Create a meshgrid for the plot
     lat_centers = (lat_bins[:-1] + lat_bins[1:]) / 2
@@ -64,11 +64,11 @@ def plot_averaged_alpha(averaged_alpha, lat_bins, alts):
 
     # Plotting the 2D colormap
     colormap = plt.pcolormesh(Lats, Alts, averaged_alpha.T, shading='auto', vmin=0, vmax=0.3, cmap='jet')
-    plt.colorbar(colormap, label='Average Alpha Caliop')
+    plt.colorbar(colormap, label='Extinction Coefficient [km$^{-1}$]')
 
     # Setting the labels and title
-    plt.xlabel('Latitude')
-    plt.ylabel('Altitude')
+    plt.xlabel('Latitude [$^{\circ}$]')
+    plt.ylabel('Altitude [km]')
     plt.title('Average Alpha Caliop vs Latitude and Altitude')
     plt.ylim([0.,10])
     # Setting the major ticks for latitude and altitude
