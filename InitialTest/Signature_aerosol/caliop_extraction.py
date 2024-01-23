@@ -61,7 +61,8 @@ def main():
     file_list = os.listdir(data_path)
     # only keep files that contains year-month-day in the full file name
     file_list = [file for file in file_list if DATE_SEARCH in file]
-
+    print(file_list)
+    quit()
     # iterate through all files
     for file in file_list:
         # print(data_path + file)
