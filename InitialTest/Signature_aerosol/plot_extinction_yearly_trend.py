@@ -91,7 +91,7 @@ def main():
         ax.set_title(f'{month}')
 
     fig.tight_layout()
-    fig.colorbar(mappables[-1], loc='b', span=number_of_columns, label='Extinction Coefficient [km$^{-1}$]', fontsize=20)
+    fig.colorbar(mappables[-1], loc='b', span=number_of_columns, label='Extinction Coefficient [km$^{-1}$]')
 
     # Adjust layout
     fig.suptitle('Monthly Extinction Coefficient Trends for 2017', fontsize=20)
