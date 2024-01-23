@@ -40,15 +40,20 @@ def aggregate_data(alpha_data_list):
             bin_min = lat_bins[i]
             bin_max = lat_bins[i + 1]
             indices = (lats >= bin_min) & (lats < bin_max)
-            # Collect data for each bin, transposing to match dimensions
             aggregated_alpha[i] = np.vstack((aggregated_alpha[i], alpha_caliop[:, indices].T))
 
     # Averaging with a check for empty bins
-    averaged_alpha = np.array([
-        np.nanmean(bin_data, axis=0) if bin_data.size > 0 else np.full(NUM_ROWS, np.nan)
-        for bin_data in aggregated_alpha
-    ])
+    averaged_alpha = np.empty((len(lat_bins) - 1, NUM_ROWS))
+    for i, bin_data in enumerate(aggregated_alpha):
+        if bin_data.size == 0:
+            # Log a warning or error message indicating the empty bin
+            print(f"Warning: No data found for bin {i} (Latitude range: {lat_bins[i]} - {lat_bins[i+1]}). Filling with NaN.")
+            averaged_alpha[i] = np.full(NUM_ROWS, np.nan)
+        else:
+            averaged_alpha[i] = np.nanmean(bin_data, axis=0)
+
     return averaged_alpha, lat_bins
+
 
 
 def plot_averaged_alpha(averaged_alpha, lat_bins, alts):
