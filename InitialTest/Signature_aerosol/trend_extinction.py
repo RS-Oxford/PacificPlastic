@@ -77,17 +77,9 @@ def main():
             file_path = os.path.join(CSV_OUTPUT_PATH, file)
             alpha_caliop, lats, alts = load_data(file_path)
             alpha_data_list.append((alpha_caliop, lats))
-            print(alts)
-            quit()
 
-    if alpha_data_list:
-        averaged_alpha, lat_bins = aggregate_data(alpha_data_list)
-
-        # Assuming altitude values are the same across files
-        sample_df = pd.read_csv(os.path.join(CSV_OUTPUT_PATH, os.listdir(CSV_OUTPUT_PATH)[0]))
-        alts = sample_df['alt_caliop'][:NUM_ROWS]
-
-        plot_averaged_alpha(averaged_alpha, lat_bins, alts)
+    averaged_alpha, lat_bins = aggregate_data(alpha_data_list)
+    plot_averaged_alpha(averaged_alpha, lat_bins, alts)
 
 
 if __name__ == "__main__":
