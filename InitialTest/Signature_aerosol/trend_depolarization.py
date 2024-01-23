@@ -80,7 +80,7 @@ def plot_averaged_dp(averaged_alpha, lat_bins, alts):
     fig, ax = pplt.subplots(figsize=(15, 6))
 
     # Plotting using ProPlot's pcolormesh for better color handling and aesthetics
-    colormap = ax.pcolormesh(Lats, Alts, averaged_alpha.T, shading='auto', cmap='RdYlBu_r')
+    colormap = ax.pcolormesh(Lats, Alts, averaged_alpha.T, shading='auto', cmap='RdYlBu_r', vmin=0.,vmax=0.1)
 
 
     # Adding a colorbar and setting its label
