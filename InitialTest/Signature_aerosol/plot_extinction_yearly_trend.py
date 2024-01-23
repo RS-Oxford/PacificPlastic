@@ -64,13 +64,14 @@ def plot_averaged_alpha(averaged_alpha, lat_bins, alts, ax):
     Lats, Alts = np.meshgrid(lat_centers, alts)
     ax.set_xlabel('Latitude [$^{\circ}$]', fontsize=20)
     ax.set_ylabel('Altitude [km]', fontsize=20)
-    ax.format(xlim=(lat_bins.min(), lat_bins.max()), ylim=(0., 4))
+    ax.format(xlim=(lat_bins.min(), lat_bins.max()), ylim=(0., 4), xticksize= 18, yticksize = 18)
+
     # This will return the 'mappable' object used for the colorbar.
     return ax.pcolormesh(Lats, Alts, averaged_alpha.T, shading='auto', cmap='RdYlBu_r', vmin=0., vmax=0.1)
 
 
 def main():
-    fig, axs = pplt.subplots(nrows=4, ncols=3, figsize=(26, 18))
+    fig, axs = pplt.subplots(nrows=4, ncols=3, figsize=(28, 18))
     months = [f'{2017}-{month:02d}' for month in range(1, 13)]
     mappables = []
     number_of_columns = 3
@@ -88,12 +89,13 @@ def main():
         averaged_alpha, lat_bins = aggregate_data(alpha_data_list)
         mappable = plot_averaged_alpha(averaged_alpha, lat_bins, alts, ax)
         mappables.append(mappable)
-        ax.set_title(f'{month}')
+        ax.set_title(f'{month}', fontsize= 18)
 
-    fig.tight_layout()
-    fig.colorbar(mappables[-1], loc='b', span=number_of_columns, label='Extinction Coefficient [km$^{-1}$]')
+        fig.colorbar(mappables[-1], loc='b', span=number_of_columns, label='Extinction Coefficient [km$^{-1}$]')
+        fig.colorbar(mappables[-1], loc='b', span=number_of_columns, label='Extinction Coefficient [km$^{-1}$]', labelsize=18, ticklabelsize=16)
 
-    # Adjust layout
+
+                     # Adjust layout
     fig.suptitle('Monthly Extinction Coefficient Trends for 2017', fontsize=20)
     fig.savefig(FIG_OUT_PATH + '/extinction_trends_2017.png')
 
