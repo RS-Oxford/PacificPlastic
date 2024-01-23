@@ -61,7 +61,7 @@ def plot_averaged_alpha(averaged_alpha, lat_bins, alts):
     # Create a meshgrid for the plot
     lat_centers = (lat_bins[:-1] + lat_bins[1:]) / 2
     alt_centers = np.arange(len(alts))
-    Lats, Alts = np.meshgrid(lat_centers, alt_centers)
+    Lats, Alts = np.meshgrid(alt_centers, lat_centers)
 
     # Plotting the 2D colormap
     plt.pcolormesh(Lats, Alts, averaged_alpha, shading='auto')
