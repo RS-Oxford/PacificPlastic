@@ -57,13 +57,22 @@ def plot_averaged_alpha(averaged_alpha, lat_bins, alts, ax):
     Lats, Alts = np.meshgrid(lat_centers, alts)
     colormap = ax.pcolormesh(Lats, Alts, averaged_alpha.T, shading='auto', cmap='RdYlBu_r', vmin=0., vmax=0.1)
     ax.colorbar(colormap, label='Extinction Coefficient [km$^{-1}$]', fraction=0.046, pad=0.04)
+
+
+def plot_averaged_alpha(averaged_alpha, lat_bins, alts, ax):
+    lat_centers = (lat_bins[:-1] + lat_bins[1:]) / 2
+    Lats, Alts = np.meshgrid(lat_centers, alts)
     ax.set_xlabel('Latitude [$^{\circ}$]')
     ax.set_ylabel('Altitude [km]')
     ax.format(xlim=(lat_bins.min(), lat_bins.max()), ylim=(0., 4))
+    # This will return the 'mappable' object used for the colorbar.
+    return ax.pcolormesh(Lats, Alts, averaged_alpha.T, shading='auto', cmap='RdYlBu_r', vmin=0., vmax=0.1)
+
 
 def main():
-    fig, axs = pplt.subplots(nrows=4, ncols=3, figsize=(15, 18), aspect=15/8)
+    fig, axs = pplt.subplots(nrows=4, ncols=3, figsize=(15, 8))  # Adjusted figsize for better aspect ratio
     months = [f'{2017}-{month:02d}' for month in range(1, 13)]
+    mappables = []
 
     for month, ax in zip(months, axs):
         CSV_OUTPUT_PATH_MONTH = CSV_OUTPUT_PATH +'/%s'%month[-2:]
@@ -76,9 +85,14 @@ def main():
                 alpha_data_list.append((alpha_caliop, lats))
 
         averaged_alpha, lat_bins = aggregate_data(alpha_data_list)
-        plot_averaged_alpha(averaged_alpha, lat_bins, alts, ax)
+        mappable = plot_averaged_alpha(averaged_alpha, lat_bins, alts, ax)
+        mappables.append(mappable)
         ax.set_title(f'{month}')
 
+    # Create a single horizontal colorbar at the bottom of the figure
+    fig.colorbar(mappables[-1], col=1, loc='b', span=12, label='Extinction Coefficient [km$^{-1}$]')
+
+    # Adjust layout
     fig.suptitle('Monthly Extinction Coefficient Trends for 2017')
     fig.savefig(FIG_OUT_PATH + '/extinction_trends_2017.png')
 
