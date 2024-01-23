@@ -90,6 +90,7 @@ def main():
         mappables.append(mappable)
         ax.set_title(f'{month}')
 
+    fig.tight_layout()
     fig.colorbar(mappables[-1], loc='b', span=number_of_columns, label='Extinction Coefficient [km$^{-1}$]')
 
     # Adjust layout
