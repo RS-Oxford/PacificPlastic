@@ -64,7 +64,7 @@ def plot_averaged_alpha(averaged_alpha, lat_bins, alts):
     Lats, Alts = np.meshgrid(lat_centers, alt_centers)
 
     # Plotting the 2D colormap
-    plt.pcolormesh(Lats, Alts, averaged_alpha.T, shading='auto')
+    plt.pcolormesh(Lats, Alts, averaged_alpha[:,::-1].T, shading='auto')
     plt.colorbar(label='Average Alpha Caliop')
 
     # Setting the labels and title
