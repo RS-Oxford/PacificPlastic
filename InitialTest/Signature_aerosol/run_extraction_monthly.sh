@@ -1,10 +1,9 @@
 #!/bin/bash
 
-# Start date
-start_date="2017-01-01"
-
-# End date
-end_date="2017-01-31"
+# Calculate start and end dates based on the month passed as a parameter
+month=$1
+start_date="2017-${month}-01"
+end_date=$(date -d "$start_date + 1 month - 1 day" +%Y-%m-%d)
 
 # Convert the start and end dates to seconds since the epoch
 start_sec=$(date -d "$start_date" +%s)
