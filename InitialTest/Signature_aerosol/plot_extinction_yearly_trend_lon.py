@@ -36,6 +36,8 @@ def create_longitude_bins():
 
 def aggregate_data(alpha_data_list):
     long_bins = create_longitude_bins()
+    print(long_bins)
+    quit()
     aggregated_alpha = [np.empty((0, NUM_ROWS)) for _ in range(len(long_bins) - 1)]
 
     for alpha_caliop, longs in alpha_data_list:
