@@ -24,7 +24,6 @@ def load_data(file_path):
     print(np.nanmean(alpha_caliop, axis=1))
     return alpha_caliop, lats
 
-
 def create_latitude_bins(lats):
     min_lat = min(lats)
     max_lat = max(lats)
@@ -41,13 +40,14 @@ def aggregate_data(alpha_data_list):
             bin_min = lat_bins[i]
             bin_max = lat_bins[i + 1]
             indices = (lats >= bin_min) & (lats < bin_max)
+            # Collect data for each bin, transposing to match dimensions
             aggregated_alpha[i] = np.vstack((aggregated_alpha[i], alpha_caliop[:, indices].T))
-    print(aggregated_alpha)
+
+    # Averaging with a check for empty bins
     averaged_alpha = np.array([
         np.nanmean(bin_data, axis=0) if bin_data.size > 0 else np.full(NUM_ROWS, np.nan)
         for bin_data in aggregated_alpha
     ])
-
     return averaged_alpha, lat_bins
 
 
