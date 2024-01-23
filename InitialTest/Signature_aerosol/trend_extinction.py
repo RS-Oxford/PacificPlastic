@@ -9,6 +9,7 @@ import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import proplot as pplt
 
 # Constants
 CSV_OUTPUT_PATH = './csv_APro'
@@ -56,25 +57,42 @@ def aggregate_data(alpha_data_list):
     return averaged_alpha, lat_bins
 
 def plot_averaged_alpha(averaged_alpha, lat_bins, alts):
-    plt.figure(figsize=(15, 6))
+    """
+    Plots the averaged alpha values over given latitude bins and altitudes using ProPlot.
 
-    # Create a meshgrid for the plot
+    Parameters:
+    averaged_alpha (np.ndarray): 2D array of averaged alpha values.
+    lat_bins (np.ndarray): Array of latitude bins.
+    alts (np.ndarray): Array of altitudes.
+
+    Returns:
+    None
+    """
+    # Calculate the center of each latitude bin for plotting
     lat_centers = (lat_bins[:-1] + lat_bins[1:]) / 2
+
+    # Create a meshgrid for plotting
     Lats, Alts = np.meshgrid(lat_centers, alts)
 
-    # Plotting the 2D colormap
-    colormap = plt.pcolormesh(Lats, Alts, averaged_alpha.T, shading='auto', vmin=0, vmax=0.3, cmap='jet')
-    plt.colorbar(colormap, label='Extinction Coefficient [km$^{-1}$]')
+    # Create a ProPlot figure for better visual appeal
+    fig, ax = pplt.subplots(figsize=(15, 6))
 
-    # Setting the labels and title
-    plt.xlabel('Latitude [$^{\circ}$]')
-    plt.ylabel('Altitude [km]')
-    plt.title('Average Alpha Caliop vs Latitude and Altitude')
-    plt.ylim([0.,10])
-    # Setting the major ticks for latitude and altitude
+    # Plotting using ProPlot's pcolormesh for better color handling and aesthetics
+    colormap = ax.pcolormesh(Lats, Alts, averaged_alpha.T, shading='auto', vmin=0, vmax=0.3, cmap='jet')
 
-    # Saving the plot
-    plt.savefig('./extinction_latitude_trend.png')
+    # Adding a colorbar and setting its label
+    ax.colorbar(colormap, label='Extinction Coefficient [km$^{-1}$]')
+
+    # Setting labels and title with improved formatting
+    ax.set_xlabel('Latitude [$^{\circ}$]')
+    ax.set_ylabel('Altitude [km]')
+    ax.set_ylim([0., 10])
+
+    # Improved aesthetics for ticks and limits
+    ax.format(xlim=(lat_bins.min(), lat_bins.max()), ylim=(alts.min(), alts.max()))
+
+    # Save the plot with a descriptive filename
+    fig.savefig('./extinction_latitude_trend_proplot.png')
 
 def main():
     alpha_data_list = []
