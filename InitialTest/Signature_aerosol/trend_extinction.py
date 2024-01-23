@@ -70,7 +70,7 @@ def plot_averaged_alpha(averaged_alpha, lat_bins, alts):
     plt.xlabel('Latitude')
     plt.ylabel('Altitude')
     plt.title('Average Alpha Caliop vs Latitude and Altitude')
-
+    plt.ylim([0.,10])
     # Setting the major ticks for latitude and altitude
 
     # Saving the plot
