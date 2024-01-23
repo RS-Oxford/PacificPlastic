@@ -56,7 +56,7 @@ def plot_averaged_alpha(averaged_alpha, lat_bins, alts, ax):
     lat_centers = (lat_bins[:-1] + lat_bins[1:]) / 2
     Lats, Alts = np.meshgrid(lat_centers, alts)
     colormap = ax.pcolormesh(Lats, Alts, averaged_alpha.T, shading='auto', cmap='RdYlBu_r', vmin=0., vmax=0.1)
-    ax.colorbar(colormap, label='Extinction Coefficient [km$^{-1}$]')
+    ax.colorbar(colormap, label='Extinction Coefficient [km$^{-1}$]', fraction=0.046, pad=0.04)
     ax.set_xlabel('Latitude [$^{\circ}$]')
     ax.set_ylabel('Altitude [km]')
     ax.format(xlim=(lat_bins.min(), lat_bins.max()), ylim=(0., 4))
