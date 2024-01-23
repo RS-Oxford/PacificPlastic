@@ -36,8 +36,7 @@ def create_longitude_bins():
 
 def aggregate_data(alpha_data_list):
     long_bins = create_longitude_bins()
-    print(long_bins)
-    quit()
+
     aggregated_alpha = [np.empty((0, NUM_ROWS)) for _ in range(len(long_bins) - 1)]
 
     for alpha_caliop, longs in alpha_data_list:
@@ -61,7 +60,7 @@ def plot_averaged_alpha(averaged_alpha, long_bins, alts, ax):
     Longs, Alts = np.meshgrid(long_centers, alts)
     ax.set_xlabel('Longitude [$^{\circ}$]', fontsize=20)
     ax.set_ylabel('Altitude [km]', fontsize=20)
-    ax.format(xlim=(long_bins.min(), long_bins.max()), ylim=(0., 4), fontsize=18)
+    ax.format(xlim=(145.,-125.), ylim=(0., 4), fontsize=18)
     colormap = ax.pcolormesh(Longs, Alts, averaged_alpha.T, shading='auto', cmap='RdYlBu_r', vmin=0., vmax=0.1)
     return colormap
 
