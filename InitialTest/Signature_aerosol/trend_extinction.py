@@ -50,6 +50,7 @@ def aggregate_data(alpha_data_list):
             print(f"Warning: No data found for bin {i} (Latitude range: {lat_bins[i]} - {lat_bins[i+1]}). Filling with NaN.")
             averaged_alpha[i] = np.full(NUM_ROWS, np.nan)
         else:
+            print(i)
             averaged_alpha[i] = np.nanmean(bin_data, axis=0)
 
     return averaged_alpha, lat_bins
