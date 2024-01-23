@@ -67,7 +67,7 @@ def plot_averaged_dp(averaged_dp, lat_bins, alts, ax):
     ax.format(xlim=(lat_bins.min(), lat_bins.max()), ylim=(0., 4), fontsize = 18)
 
     # This will return the 'mappable' object used for the colorbar.
-    return ax.pcolormesh(Lats, Alts, averaged_dp.T, shading='auto', cmap='Div', vmin=0., vmax=0.1)
+    return ax.pcolormesh(Lats, Alts, averaged_dp.T, shading='auto', cmap='magma', vmin=0., vmax=0.1)
 
 
 def main():
