@@ -22,7 +22,7 @@ def load_data(file_path):
     df = pd.read_csv(file_path)
     num_cols = len(df) // NUM_ROWS
     alpha_caliop = df['alpha_caliop'].values.reshape(NUM_ROWS, num_cols)
-    longs = df['caliop_long'].unique()  # Assume longitude data is in 'caliop_long'
+    longs = df['caliop_lon'].unique()  # Assume longitude data is in 'caliop_long'
     alts = df['alt_caliop'].unique()
     return alpha_caliop, longs, alts
 
