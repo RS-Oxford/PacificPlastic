@@ -88,10 +88,8 @@ def plot_averaged_alpha(averaged_alpha, lat_bins, alts):
     # Setting labels and title with improved formatting
     ax.set_xlabel('Latitude [$^{\circ}$]')
     ax.set_ylabel('Altitude [km]')
-    ax.set_ylim([0., 10])
-
     # Improved aesthetics for ticks and limits
-    ax.format(xlim=(lat_bins.min(), lat_bins.max()), ylim=(alts.min(), alts.max()))
+    ax.format(xlim=(lat_bins.min(), lat_bins.max()), ylim=(0., 10))
 
     # Save the plot with a descriptive filename
     fig.savefig('./extinction_latitude_trend_proplot.png')
