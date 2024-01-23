@@ -19,6 +19,7 @@ from get_caliop import *
 
 # Constants
 LOG_EXTENSION = ".log"
+# latitude distribution
 NORTHERN_LATITUDE = 50
 SOUTHERN_LATITUDE = 0
 WESTERN_LONGITUDE = -150
@@ -38,7 +39,7 @@ DATE_SEARCH = args.DATE_SEARCH
 
 # Directory paths and locations
 CALIPSO_DATA_PATH = "/gws/nopw/j04/gbov/data/asdc.larc.nasa.gov/data/CALIPSO/LID_L2_05kmAPro-Standard-V4-51/"
-CSV_OUTPUT_PATH = './csv_APro'
+CSV_OUTPUT_PATH = './csv_APro_lat_distribution'
 # Create csv saving directory if not present
 if not os.path.exists(CSV_OUTPUT_PATH):
     os.mkdir(CSV_OUTPUT_PATH)
