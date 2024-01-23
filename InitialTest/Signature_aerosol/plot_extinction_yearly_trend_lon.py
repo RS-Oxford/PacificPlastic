@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-# @Filename:    plot_extinction_yearly_trend.py
+# @Filename:    plot_extinction_yearly_trend_lon.py
 # @Author:      Dr. Rui Song
 # @Email:       rui.song@physics.ox.ac.uk
-# @Time:        23/01/2024 15:18
-
+# @Time:        23/01/2024 22:15
 import os
 import pandas as pd
 import numpy as np
@@ -18,6 +17,7 @@ NUM_ROWS = 399  # Fixed number of rows in each dataframe
 if not os.path.exists(FIG_OUT_PATH):
     os.mkdir(FIG_OUT_PATH)
 
+
 def load_data(file_path):
     df = pd.read_csv(file_path)
     num_cols = len(df) // NUM_ROWS
@@ -25,6 +25,7 @@ def load_data(file_path):
     longs = df['caliop_long'].unique()  # Assume longitude data is in 'caliop_long'
     alts = df['alt_caliop'].unique()
     return alpha_caliop, longs, alts
+
 
 def create_longitude_bins():
     # Bins from 145 to 180 degrees
@@ -34,6 +35,7 @@ def create_longitude_bins():
     # Combine positive and negative bins
     bins = np.concatenate((bins_positive, bins_negative))
     return bins
+
 
 def aggregate_data(alpha_data_list):
     long_bins = create_longitude_bins()
@@ -88,7 +90,8 @@ def main():
     fig.colorbar(mappables[-1], loc='b', span=3, label='Extinction Coefficient [km$^{-1}$]', labelsize=18,
                  ticklabelsize=16)
     fig.suptitle('Monthly Extinction Coefficient Trends for 2017', fontsize=20)
-    fig.savefig(FIG_OUT_PATH + '/extinction_trends_2017.png')
+    fig.savefig(FIG_OUT_PATH + '/extinction_trends_2017_lon.png')
 
 if __name__ == "__main__":
     main()
+
