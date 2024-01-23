@@ -21,8 +21,8 @@ def load_data(file_path):
     num_cols = len(df) // NUM_ROWS  # Calculate number of columns
     alpha_caliop = df['alpha_caliop'].values.reshape(NUM_ROWS, num_cols)
     lats = df['caliop_lat'].unique()
-    print(np.nanmean(alpha_caliop, axis=1))
-    return alpha_caliop, lats
+    alts = df['alt_caliop'].unique()
+    return alpha_caliop, lats, alts
 
 def create_latitude_bins(lats):
     min_lat = min(lats)
@@ -57,9 +57,6 @@ def aggregate_data(alpha_data_list):
     print(lat_bins)
     return averaged_alpha, lat_bins
 
-
-
-
 def plot_averaged_alpha(averaged_alpha, lat_bins, alts):
     plt.figure(figsize=(10, 6))
     for i, alt in enumerate(alts):
@@ -78,8 +75,10 @@ def main():
         if file.endswith('.csv'):
             print('Processing: ', file)
             file_path = os.path.join(CSV_OUTPUT_PATH, file)
-            alpha_caliop, lats = load_data(file_path)
+            alpha_caliop, lats, alts = load_data(file_path)
             alpha_data_list.append((alpha_caliop, lats))
+            print(alts)
+            quit()
 
     if alpha_data_list:
         averaged_alpha, lat_bins = aggregate_data(alpha_data_list)
