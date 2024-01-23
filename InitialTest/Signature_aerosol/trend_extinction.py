@@ -51,23 +51,30 @@ def aggregate_data(alpha_data_list):
             print(f"Warning: No data found for bin {i} (Latitude range: {lat_bins[i]} - {lat_bins[i+1]}). Filling with NaN.")
             averaged_alpha[i] = np.full(NUM_ROWS, np.nan)
         else:
-            print(i, lat_bins[i])
             averaged_alpha[i] = np.nanmean(bin_data, axis=0)
-    print(averaged_alpha)
-    print(lat_bins)
+
     return averaged_alpha, lat_bins
 
 def plot_averaged_alpha(averaged_alpha, lat_bins, alts):
-    plt.figure(figsize=(10, 6))
-    for i, alt in enumerate(alts):
-        plt.plot(lat_bins[:-1], averaged_alpha[:, i], label=f'Altitude {alt}')
+    plt.figure(figsize=(12, 6))
 
-    plt.xlabel('Latitude (grouped every 0.1°)')
-    plt.ylabel('Average Alpha Caliop')
-    plt.title('Average Alpha Caliop vs Latitude')
-    plt.legend()
+    # Create a meshgrid for the plot
+    lat_centers = (lat_bins[:-1] + lat_bins[1:]) / 2
+    alt_centers = np.arange(len(alts))
+    Lats, Alts = np.meshgrid(lat_centers, alt_centers)
+
+    # Plotting the 2D colormap
+    plt.pcolormesh(Lats, Alts, averaged_alpha, shading='auto')
+    plt.colorbar(label='Average Alpha Caliop')
+
+    # Setting the labels and title
+    plt.xlabel('Latitude')
+    plt.ylabel('Altitude')
+    plt.title('Average Alpha Caliop vs Latitude and Altitude')
+    plt.xticks(ticks=np.arange(len(lat_bins)-1), labels=[f"{lat:.2f}" for lat in lat_centers], rotation=45)
+    plt.yticks(ticks=np.arange(len(alts)), labels=[f"{alt:.2f}" for alt in alts])
+
     plt.savefig('./extinction_latitude_trend.png')
-
 
 def main():
     alpha_data_list = []
@@ -80,7 +87,6 @@ def main():
 
     averaged_alpha, lat_bins = aggregate_data(alpha_data_list)
     plot_averaged_alpha(averaged_alpha, lat_bins, alts)
-
 
 if __name__ == "__main__":
     main()
