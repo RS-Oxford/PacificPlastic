@@ -63,7 +63,6 @@ def plot_averaged_alpha(averaged_alpha, lat_bins, alts, ax):
 
 def main():
     fig, axs = pplt.subplots(nrows=4, ncols=3, figsize=(15, 18))
-    axs = axs.flatten()
     months = [f'{2017}-{month:02d}' for month in range(1, 13)]
 
     for month, ax in zip(months, axs):
