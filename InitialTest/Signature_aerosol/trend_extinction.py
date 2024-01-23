@@ -55,6 +55,7 @@ def aggregate_data(alpha_data_list):
         else:
             bin_data[bin_data == np.nan] = 0.
             averaged_alpha[i] = np.mean(bin_data, axis=0)
+            print(averaged_alpha[i])
 
     return averaged_alpha, lat_bins
 
