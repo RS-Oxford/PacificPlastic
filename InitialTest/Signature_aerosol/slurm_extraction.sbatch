@@ -12,7 +12,7 @@ start_date="2017-${month}-01"
 end_date=$(date -d "$start_date + 1 month - 1 day" +%Y-%m-%d)
 
 # Loop over each day
-current_sec=$start_sec
+current_sec=start_date
 while [ $current_sec -le $end_sec ]; do
     # Convert the current date in seconds back to a readable format
     current_date=$(date -d @$current_sec +%Y-%m-%d)
