@@ -59,10 +59,10 @@ def plot_averaged_alpha(averaged_alpha, lat_bins, alts, ax):
     ax.colorbar(colormap, label='Extinction Coefficient [km$^{-1}$]')
     ax.set_xlabel('Latitude [$^{\circ}$]')
     ax.set_ylabel('Altitude [km]')
-    ax.format(xlim=(lat_bins.min(), lat_bins.max()), ylim=(0., 10))
+    ax.format(xlim=(lat_bins.min(), lat_bins.max()), ylim=(0., 4))
 
 def main():
-    fig, axs = pplt.subplots(nrows=4, ncols=3, figsize=(15, 18))
+    fig, axs = pplt.subplots(nrows=4, ncols=3, figsize=(15, 18), aspect=15/8)
     months = [f'{2017}-{month:02d}' for month in range(1, 13)]
 
     for month, ax in zip(months, axs):
