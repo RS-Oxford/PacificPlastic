@@ -47,7 +47,7 @@ def aggregate_data(alpha_data_list):
     averaged_alpha = np.empty((len(lat_bins) - 1, NUM_ROWS))
 
     for i, bin_data in enumerate(aggregated_alpha):
-        print(bin_data.shape)
+
         if bin_data.size == 0:
             # Log a warning or error message indicating the empty bin
             print(f"Warning: No data found for bin {i} (Latitude range: {lat_bins[i]} - {lat_bins[i+1]}). Filling with NaN.")
@@ -80,7 +80,7 @@ def plot_averaged_alpha(averaged_alpha, lat_bins, alts):
     fig, ax = pplt.subplots(figsize=(15, 6))
 
     # Plotting using ProPlot's pcolormesh for better color handling and aesthetics
-    colormap = ax.pcolormesh(Lats, Alts, averaged_alpha.T, shading='auto', vmin=0, vmax=0.3, cmap='jet')
+    colormap = ax.pcolormesh(Lats, Alts, averaged_alpha.T, shading='auto', cmap='jet')
 
     # Adding a colorbar and setting its label
     ax.colorbar(colormap, label='Extinction Coefficient [km$^{-1}$]')
