@@ -61,18 +61,18 @@ def plot_averaged_alpha(averaged_alpha, lat_bins, alts):
     # Create a meshgrid for the plot
     lat_centers = (lat_bins[:-1] + lat_bins[1:]) / 2
     alt_centers = np.arange(len(alts))
-    Lats, Alts = np.meshgrid(alt_centers, lat_centers)
+    Lats, Alts = np.meshgrid(lat_centers, alt_centers)
 
     # Plotting the 2D colormap
-    plt.pcolormesh(Lats, Alts, averaged_alpha, shading='auto')
+    plt.pcolormesh(Lats, Alts, averaged_alpha.T, shading='auto')
     plt.colorbar(label='Average Alpha Caliop')
 
     # Setting the labels and title
     plt.xlabel('Latitude')
     plt.ylabel('Altitude')
     plt.title('Average Alpha Caliop vs Latitude and Altitude')
-    plt.xticks(ticks=np.arange(len(lat_bins)-1), labels=[f"{lat:.2f}" for lat in lat_centers], rotation=45)
-    plt.yticks(ticks=np.arange(len(alts)), labels=[f"{alt:.2f}" for alt in alts])
+    # plt.xticks(ticks=np.arange(len(lat_bins)-1), labels=[f"{lat:.2f}" for lat in lat_centers], rotation=45)
+    # plt.yticks(ticks=np.arange(len(alts)), labels=[f"{alt:.2f}" for alt in alts])
 
     plt.savefig('./extinction_latitude_trend.png')
 
