@@ -55,7 +55,6 @@ def aggregate_data(alpha_data_list):
         else:
             bin_data = np.nan_to_num(bin_data, nan = 0)
             averaged_alpha[i] = np.mean(bin_data, axis=0)
-            print(averaged_alpha[i])
 
     return averaged_alpha, lat_bins
 
@@ -81,7 +80,7 @@ def plot_averaged_alpha(averaged_alpha, lat_bins, alts):
     fig, ax = pplt.subplots(figsize=(15, 6))
 
     # Plotting using ProPlot's pcolormesh for better color handling and aesthetics
-    colormap = ax.pcolormesh(Lats, Alts, averaged_alpha.T, shading='auto', cmap='jet')
+    colormap = ax.pcolormesh(Lats, Alts, averaged_alpha.T, shading='auto', cmap='jet', vmin=0., cmax=0.1)
 
     # Adding a colorbar and setting its label
     ax.colorbar(colormap, label='Extinction Coefficient [km$^{-1}$]')
