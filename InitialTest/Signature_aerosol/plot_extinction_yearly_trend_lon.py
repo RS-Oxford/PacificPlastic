@@ -10,13 +10,12 @@ import numpy as np
 import proplot as pplt
 
 # Constants
-CSV_OUTPUT_PATH = './csv_APro'
+CSV_OUTPUT_PATH = './csv_APro_lon_distribution'
 FIG_OUT_PATH = './figures'
 NUM_ROWS = 399  # Fixed number of rows in each dataframe
 
 if not os.path.exists(FIG_OUT_PATH):
     os.mkdir(FIG_OUT_PATH)
-
 
 def load_data(file_path):
     df = pd.read_csv(file_path)
@@ -26,7 +25,6 @@ def load_data(file_path):
     alts = df['alt_caliop'].unique()
     return alpha_caliop, longs, alts
 
-
 def create_longitude_bins():
     # Bins from 145 to 180 degrees
     bins_positive = np.arange(145, 180, 0.1)
@@ -35,7 +33,6 @@ def create_longitude_bins():
     # Combine positive and negative bins
     bins = np.concatenate((bins_positive, bins_negative))
     return bins
-
 
 def aggregate_data(alpha_data_list):
     long_bins = create_longitude_bins()
