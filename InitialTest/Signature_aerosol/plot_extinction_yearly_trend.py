@@ -91,10 +91,7 @@ def main():
         mappables.append(mappable)
         ax.set_title(f'{month}', fontsize= 18)
 
-        fig.colorbar(mappables[-1], loc='b', span=number_of_columns, label='Extinction Coefficient [km$^{-1}$]', labelsize=18, ticklabelsize=16)
-
-
-                     # Adjust layout
+    fig.colorbar(mappables[-1], loc='b', span=number_of_columns, label='Extinction Coefficient [km$^{-1}$]', labelsize=18, ticklabelsize=16)
     fig.suptitle('Monthly Extinction Coefficient Trends for 2017', fontsize=20)
     fig.savefig(FIG_OUT_PATH + '/extinction_trends_2017.png')
 
