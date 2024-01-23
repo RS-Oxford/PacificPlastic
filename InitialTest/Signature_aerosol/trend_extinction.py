@@ -53,11 +53,11 @@ def aggregate_data(alpha_data_list):
         else:
             print(i, lat_bins[i])
             averaged_alpha[i] = np.nanmean(bin_data, axis=0)
-
-    return averaged_alpha, lat_bins
-
     print(averaged_alpha)
     print(lat_bins)
+    return averaged_alpha, lat_bins
+
+
 
 
 def plot_averaged_alpha(averaged_alpha, lat_bins, alts):
