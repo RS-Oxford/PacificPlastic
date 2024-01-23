@@ -65,19 +65,19 @@ def main():
     # iterate through all files
     for file in file_list:
         # print(data_path + file)
-        # try:
+        try:
 
-        (footprint_lat_caliop, footprint_lon_caliop,
-         alt_caliop, beta_caliop, alpha_caliop,
-         caliop_aerosol_type, caliop_feature_type, caliop_dp, alt_tropopause) \
-            = extract_variables_from_caliop(data_path + '/' + file, logger)
+            (footprint_lat_caliop, footprint_lon_caliop,
+             alt_caliop, beta_caliop, alpha_caliop,
+             caliop_aerosol_type, caliop_feature_type, caliop_dp, alt_tropopause) \
+                = extract_variables_from_caliop(data_path + '/' + file, logger)
 
-            # print('Processing file: {}'.format(file))
+            print('Processing file: {}'.format(file))
 
-        # except:
-        #     print('Cannot process file: {}'.format(file))
-        #     continue
-
+        except:
+            print('Cannot process file: {}'.format(file))
+            continue
+        print(123)
         caliop_aerosol_type = caliop_aerosol_type[:, (footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & (footprint_lon_caliop > WESTERN_LONGITUDE) & (footprint_lon_caliop < EASTERN_LONGITUDE)]
         caliop_feature_type = caliop_feature_type[:, (footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & (footprint_lon_caliop > WESTERN_LONGITUDE) & (footprint_lon_caliop < EASTERN_LONGITUDE)]
         caliop_dp = caliop_dp[:, (footprint_lat_caliop > SOUTHERN_LATITUDE) & (footprint_lat_caliop < NORTHERN_LATITUDE) & (footprint_lon_caliop > WESTERN_LONGITUDE) & (footprint_lon_caliop < EASTERN_LONGITUDE)]
