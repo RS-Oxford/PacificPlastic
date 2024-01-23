@@ -73,6 +73,7 @@ def main():
     fig, axs = pplt.subplots(nrows=4, ncols=3, figsize=(15, 18), aspect=15/8)
     months = [f'{2017}-{month:02d}' for month in range(1, 13)]
     mappables = []
+    number_of_columns = 3
 
     for month, ax in zip(months, axs):
         CSV_OUTPUT_PATH_MONTH = CSV_OUTPUT_PATH +'/%s'%month[-2:]
@@ -89,8 +90,7 @@ def main():
         mappables.append(mappable)
         ax.set_title(f'{month}')
 
-    # Create a single horizontal colorbar at the bottom of the figure
-    fig.colorbar(mappables[-1], loc='b', span='all', label='Extinction Coefficient [km$^{-1}$]')
+    fig.colorbar(mappables[-1], loc='b', span=number_of_columns, label='Extinction Coefficient [km$^{-1}$]')
 
     # Adjust layout
     fig.suptitle('Monthly Extinction Coefficient Trends for 2017')
