@@ -39,6 +39,9 @@ DATE_SEARCH = args.DATE_SEARCH
 # Directory paths and locations
 CALIPSO_DATA_PATH = "/gws/nopw/j04/gbov/data/asdc.larc.nasa.gov/data/CALIPSO/LID_L2_05kmAPro-Standard-V4-51/"
 CSV_OUTPUT_PATH = './csv_APro'
+# Create csv saving directory if not present
+if not os.path.exists(CSV_OUTPUT_PATH):
+    os.mkdir(CSV_OUTPUT_PATH)
 
 # Initialize Logging
 script_base_name, _ = os.path.splitext(sys.modules['__main__'].__file__)
@@ -48,14 +51,15 @@ logger = logging.getLogger()
 
 def main():
 
-    # Create csv saving directory if not present
-    if not os.path.exists(CSV_OUTPUT_PATH):
-        os.mkdir(CSV_OUTPUT_PATH)
-
     # search all data at CALIPSO_DATA_PATH/year/month/
     year = DATE_SEARCH.split('-')[0]
     month = DATE_SEARCH.split('-')[1]
     day = DATE_SEARCH.split('-')[2]
+
+    CSV_OUTPUT_PATH_MONTH = CSV_OUTPUT_PATH + '/%s'%month
+    if not os.path.exists(CSV_OUTPUT_PATH_MONTH):
+        os.mkdir(CSV_OUTPUT_PATH_MONTH)
+
     data_path = os.path.join(CALIPSO_DATA_PATH, year, month)
 
     file_list = os.listdir(data_path)
@@ -107,9 +111,8 @@ def main():
             })
 
             # Save the DataFrame
-            output_file = os.path.join(CSV_OUTPUT_PATH, f"{file[0:-4]}.csv")
+            output_file = os.path.join(CSV_OUTPUT_PATH_MONTH, f"{file[0:-4]}.csv")
             df.to_csv(output_file, index=False)
-
 
 if __name__ == "__main__":
     main()
