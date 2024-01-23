@@ -66,7 +66,7 @@ def main():
     months = [f'{2017}-{month:02d}' for month in range(1, 13)]
 
     for month, ax in zip(months, axs):
-        CSV_OUTPUT_PATH_MONTH = CSV_OUTPUT_PATH +'/%s'%month
+        CSV_OUTPUT_PATH_MONTH = CSV_OUTPUT_PATH +'/%s'%month[-2:]
         alpha_data_list = []
         for file in os.listdir(CSV_OUTPUT_PATH_MONTH):
             if file.endswith('.csv') and month in file:
