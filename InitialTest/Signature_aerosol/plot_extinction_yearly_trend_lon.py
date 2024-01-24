@@ -5,12 +5,11 @@
 # @Email:       rui.song@physics.ox.ac.uk
 # @Time:        23/01/2024 22:15
 
-
 import os
 import pandas as pd
 import numpy as np
 import proplot as pplt
-
+import matplotlib.ticker as ticker
 # Constants
 CSV_OUTPUT_PATH = './csv_APro_lon_distribution'
 FIG_OUT_PATH = './figures'
@@ -69,9 +68,10 @@ def plot_averaged_alpha(averaged_alpha, long_bins, alts, ax):
         else:
             return f"{lon:.0f}°E"
 
-    # Apply custom formatting to x-axis ticks
-    ax.set_xticks(long_bins)
-    ax.set_xticklabels([format_lon_labels(lon) for lon in long_bins])
+    # Set a reasonable interval for longitude ticks
+    tick_interval = 10  # Adjust the interval as needed
+    ax.xaxis.set_major_locator(ticker.MultipleLocator(tick_interval))
+    ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: format_lon_labels(x)))
 
     # This will return the 'mappable' object used for the colorbar.
     return ax.pcolormesh(Longs, Alts, averaged_alpha.T, shading='auto', cmap='RdYlBu_r', vmin=0., vmax=0.1)
