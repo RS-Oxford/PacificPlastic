@@ -73,6 +73,9 @@ def plot_averaged_alpha(averaged_alpha, long_bins, alts, ax):
     ax.xaxis.set_major_locator(ticker.MultipleLocator(tick_interval))
     ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: format_lon_labels(x)))
 
+    for label in ax.get_xticklabels():
+        label.set_fontsize(18)  # Adjust the font size as needed
+
     # This will return the 'mappable' object used for the colorbar.
     return ax.pcolormesh(Longs, Alts, averaged_alpha.T, shading='auto', cmap='RdYlBu_r', vmin=0., vmax=0.1)
 
