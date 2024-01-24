@@ -23,7 +23,7 @@ NUM_ROWS = 399  # Fixed number of rows in each dataframe
 def load_data(file_path):
     df = pd.read_csv(file_path)
     num_cols = len(df) // NUM_ROWS
-    dp_caliop = df['dp_caliop'].values.reshape(NUM_ROWS, num_cols)
+    dp_caliop = df['caliop_dp'].values.reshape(NUM_ROWS, num_cols)
     longs = df['caliop_lon'].unique()  # Adjusted to read longitude
     alts = df['alt_caliop'].unique()
 
