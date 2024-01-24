@@ -48,7 +48,7 @@ def aggregate_data(alpha_data_list):
     averaged_alpha = np.empty((len(long_bins) - 1, NUM_ROWS))
     for i, bin_data in enumerate(aggregated_alpha):
         if bin_data.size == 0:
-            print(f"Warning: No data for bin")
+            print("Warning: No data for bin")
             averaged_alpha[i] = np.full(NUM_ROWS, np.nan)
         else:
             bin_data = np.nan_to_num(bin_data, nan=0)
