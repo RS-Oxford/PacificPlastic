@@ -29,6 +29,7 @@ def load_data(file_path):
     alts = df['alt_caliop'].unique()
 
     longs[longs<0.] = 360. + longs[longs<0.]
+    print(np.min(longs), np.max(longs))
     return alpha_caliop, longs, alts
 
 def create_longitude_bins(longs):
