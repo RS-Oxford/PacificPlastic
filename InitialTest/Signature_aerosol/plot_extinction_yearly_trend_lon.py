@@ -5,12 +5,6 @@
 # @Email:       rui.song@physics.ox.ac.uk
 # @Time:        23/01/2024 22:15
 
-#!/usr/bin/env python
-# -*- coding:utf-8 -*-
-# @Filename:    plot_extinction_yearly_trend.py
-# @Author:      Dr. Rui Song
-# @Email:       rui.song@physics.ox.ac.uk
-# @Time:        23/01/2024 15:18
 
 import os
 import pandas as pd
@@ -54,8 +48,7 @@ def aggregate_data(alpha_data_list):
     averaged_alpha = np.empty((len(long_bins) - 1, NUM_ROWS))
     for i, bin_data in enumerate(aggregated_alpha):
         if bin_data.size == 0:
-            # print(f"Warning: No data for bin {i} ({long_bins[i]} - {long_bins[i+1]}).")
-            print('Warning: No data')
+            print("Warning: No data for bin {} ({} - {}).".format(i, long_bins[i], long_bins[i + 1]))
             averaged_alpha[i] = np.full(NUM_ROWS, np.nan)
         else:
             bin_data = np.nan_to_num(bin_data, nan=0)
