@@ -29,7 +29,6 @@ def load_data(file_path):
     alts = df['alt_caliop'].unique()
 
     longs[longs<0.] = 360. + longs[longs<0.]
-    print(np.min(longs), np.max(longs))
     return alpha_caliop, longs, alts
 
 def create_longitude_bins(longs):
@@ -59,9 +58,20 @@ def aggregate_data(alpha_data_list):
 def plot_averaged_alpha(averaged_alpha, long_bins, alts, ax):
     long_centers = (long_bins[:-1] + long_bins[1:]) / 2
     Longs, Alts = np.meshgrid(long_centers, alts)
-    ax.set_xlabel('Longitude [$^{\circ}$]', fontsize=20)
+    ax.set_xlabel('Longitude', fontsize=20)
     ax.set_ylabel('Altitude [km]', fontsize=20)
     ax.format(xlim=(long_bins.min(), long_bins.max()), ylim=(0., 4), fontsize=18)
+
+    # Custom function to format longitude labels
+    def format_lon_labels(lon):
+        if lon > 180:
+            return f"{360 - lon:.0f}°W"
+        else:
+            return f"{lon:.0f}°E"
+
+    # Apply custom formatting to x-axis ticks
+    ax.set_xticks(long_bins)
+    ax.set_xticklabels([format_lon_labels(lon) for lon in long_bins])
 
     # This will return the 'mappable' object used for the colorbar.
     return ax.pcolormesh(Longs, Alts, averaged_alpha.T, shading='auto', cmap='RdYlBu_r', vmin=0., vmax=0.1)
