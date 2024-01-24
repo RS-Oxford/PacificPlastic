@@ -12,7 +12,7 @@ import numpy as np
 import proplot as pplt
 
 # Constants
-CSV_OUTPUT_PATH = './csv_APro'
+CSV_OUTPUT_PATH = './csv_APro_lon_distribution'
 FIG_OUT_PATH = './figures'
 
 if not os.path.exists(FIG_OUT_PATH):
