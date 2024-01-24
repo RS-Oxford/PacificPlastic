@@ -85,7 +85,7 @@ def main():
         averaged_alpha, long_bins = aggregate_data(alpha_data_list)
         mappable = plot_averaged_alpha(averaged_alpha, long_bins, alts, ax)
         mappables.append(mappable)
-        ax.set_title(f'{month}', fontsize=18)
+        ax.set_title('{}'.format(month), fontsize=18)
 
     fig.colorbar(mappables[-1], loc='b', span=number_of_columns, label='Extinction Coefficient [km$^{-1}$]', labelsize=18, ticklabelsize=16)
     fig.suptitle('Monthly Extinction Coefficient Trends for 2017', fontsize=20)
