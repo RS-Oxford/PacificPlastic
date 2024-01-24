@@ -81,7 +81,7 @@ def plot_averaged_alpha(averaged_alpha, long_bins, alts, ax):
 
 def main():
     fig, axs = pplt.subplots(nrows=4, ncols=3, figsize=(28, 18))
-    months = ['{}-{:02d}'.format(2017, month) for month in range(1, 2)]
+    months = ['{}-{:02d}'.format(2017, month) for month in range(1, 13)]
 
     mappables = []
     number_of_columns = 3
